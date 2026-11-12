@@ -1,0 +1,9 @@
+.git
+.next
+out
+node_modules
+.venv
+tmp
+.env*
+*.tsbuildinfo
+.DS_Store

@@ -28,7 +28,7 @@ Open http://127.0.0.1:3000. The static export is `out/`. Directory-style routes 
 
 ## Deployment URL
 
-Set `NEXT_PUBLIC_SITE_URL` to your actual public HTTPS origin before the production build. This enables canonical URLs, social image URLs, and sitemap entries. No domain is fabricated. `robots.txt` omits the sitemap reference until configured.
+On Vercel, the stable production origin is read automatically from `VERCEL_PROJECT_PRODUCTION_URL`. Set `NEXT_PUBLIC_SITE_URL` to override it with a custom public HTTPS origin. This enables canonical URLs, social image URLs, and sitemap entries. No domain is fabricated. `robots.txt` omits the sitemap reference until configured.
 
 ## Contact
 
