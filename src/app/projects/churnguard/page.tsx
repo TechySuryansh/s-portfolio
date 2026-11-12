@@ -1,0 +1,27 @@
+import type { Metadata } from 'next';
+import { siteUrl } from '@/lib/site';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { projects } from '@/data/portfolio';
+import { Footer } from '@/components/contact';
+
+export const metadata: Metadata = {
+  title: 'ChurnGuard AI — Engineering case study | Suryansh Singh',
+  description: 'Customer churn prediction, retrieval-assisted retention planning, and an honest look at the recorded evaluation results and limitations.',
+  alternates: siteUrl ? { canonical: '/projects/churnguard/' } : undefined,
+};
+const source = 'https://github.com/TechySuryansh/GenAI/blob/main/';
+export default function ChurnGuardCaseStudy() {
+  const project = projects[0];
+  return <div className="container case-study">
+    <nav className="case-nav" aria-label="Case study navigation"><a href="/#projects"><ArrowLeft size={16}/> Back to projects</a><a href={project.demo} target="_blank" rel="noreferrer">Open live demo <ArrowUpRight size={16}/></a></nav>
+    <main id="main">
+      <header className="case-header"><p className="eyebrow">ENGINEERING CASE STUDY / 01</p><h1>From churn risk<br/>to a retention plan.</h1><p>ChurnGuard AI brings a classification model and a retrieval-assisted agent into one customer analytics workflow.</p><div className="tags">{project.tags.map(tag=><span key={tag}>{tag}</span>)}</div></header>
+      <section className="case-section"><h2>The problem</h2><p>A churn score identifies risk, but a customer-service team also needs a next step. This project explores how customer profiling, machine learning, and contextual retention guidance can work together in one application.</p></section>
+      <section className="case-section"><h2>How the system works</h2><p>The repository documents a Streamlit interface for predictions, strategy generation, follow-up conversations, and model comparisons.</p><ol className="architecture-flow">{[['Profile & predict','Customer attributes feed the Scikit-Learn model.'],['Analyze','The agent identifies risk factors from the customer context.'],['Retrieve','ChromaDB supplies relevant retention guidance.'],['Plan & respond','LangGraph coordinates recommendations and conversation.'],['Export','A PDF captures the retention action plan.']].map(([title,body])=><li key={title}><h3>{title}</h3><p>{body}</p></li>)}</ol><a className="source-citation" href={source+'README.md'} target="_blank" rel="noreferrer">Read the implementation overview ↗</a></section>
+      <section className="case-section"><h2>Engineering choices</h2><div className="case-columns"><div><h3>Compare simple models first</h3><p>The training code compares logistic regression with a decision tree and tunes parameters using five-fold cross-validation scored on F1.</p></div><div><h3>Separate prediction from guidance</h3><p>The classifier supplies the churn prediction. A separate agent retrieves guidance and generates a plan, making the two responsibilities explicit.</p></div><div><h3>Keep context across questions</h3><p>LangGraph checkpointing maintains conversational context while PDF export makes the resulting plan portable.</p></div></div></section>
+      <section className="case-section"><h2>Recorded evaluation</h2><p>The repository includes these saved metrics. They are reported experiment outputs, not independently reproduced results or evidence of business impact.</p><div className="table-scroll"><table><caption>Saved classification metrics from results/metrics.json</caption><thead><tr><th scope="col">Model</th><th scope="col">Accuracy</th><th scope="col">Precision</th><th scope="col">Recall</th><th scope="col">F1</th></tr></thead><tbody><tr><th scope="row">Logistic regression</th><td>79.70%</td><td>63.75%</td><td>54.55%</td><td>0.5879</td></tr><tr><th scope="row">Decision tree</th><td>79.49%</td><td>63.41%</td><td>53.74%</td><td>0.5818</td></tr></tbody></table></div><p>The code uses an 80/20 stratified split with random state 42. Logistic regression has a slightly higher saved F1, but both models leave substantial room to improve recall.</p><div className="case-sources"><a href={source+'results/metrics.json'} target="_blank" rel="noreferrer">Saved results ↗</a><a href={source+'src/train.py'} target="_blank" rel="noreferrer">Training code ↗</a><a href={source+'src/preprocess.py'} target="_blank" rel="noreferrer">Preprocessing code ↗</a></div></section>
+      <section className="case-section"><h2>Limitations & next steps</h2><p>The current preprocessing code fits scaling before the train/test split. A stricter evaluation should fit preprocessing only on training data and inside each cross-validation fold, then rerun the comparison. These saved scores should therefore be treated as preliminary.</p><p>The next evaluation should also compare a simple baseline, examine the precision/recall trade-off, and measure retrieval relevance and generated-answer quality. No verified latency, retention uplift, or production-usage claim is made here.</p></section>
+      <section className="case-section case-next"><h2>Try the workflow.</h2><p>Use a sample customer profile to explore a prediction, request a retention plan, and inspect the repository alongside the demo.</p><div className="hero-actions"><a className="button primary" href={project.demo} target="_blank" rel="noreferrer">Launch ChurnGuard AI <ArrowUpRight size={16}/></a><a className="resource-link" href={project.github} target="_blank" rel="noreferrer">View source <ArrowUpRight size={16}/></a></div></section>
+    </main><Footer/>
+  </div>;
+}

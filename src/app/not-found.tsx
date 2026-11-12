@@ -1,0 +1,1 @@
+export default function NotFound(){return <main className="container section"><p className="eyebrow">404 / PAGE NOT FOUND</p><h1>Let’s get you back on track.</h1><p className="contact-copy">This page doesn’t exist.</p><a className="button primary" href="/">Back to portfolio ↗</a></main>}

@@ -1,0 +1,4 @@
+import { ArrowUpRight } from 'lucide-react';
+import type { ReactNode } from 'react';
+export function SectionHeading({ number, label, title, children }: {number:string;label:string;title:string;children?:ReactNode}) { return <div className="section-heading"><div><p className="eyebrow"><span>{number}</span> / {label}</p><h2>{title}</h2></div>{children && <p className="section-intro">{children}</p>}</div>; }
+export function ResourceLink({ href, children, className = '' }: {href:string|null;children:ReactNode;className?:string}) { return href ? <a className={`resource-link ${className}`} href={href} target="_blank" rel="noreferrer">{children}<ArrowUpRight size={15}/></a> : <span className={`resource-link unavailable ${className}`} aria-label={`${typeof children === 'string' ? children : 'Link'} not yet available`}>{children}<span className="pending-label">Soon</span></span>; }
